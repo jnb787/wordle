@@ -1,22 +1,33 @@
+import requests
+import random
+
 GREEN = "\033[32m"
 YELLOW = "\033[33m"
 RESET = "\033[0m"
+source = requests.get("https://gist.githubusercontent.com/daemondevin/df09befaf533c380743bc2c378863f0c/raw")
 
+if source.status_code == 200:
+    word_list = source.text.splitlines()
+else:
+    print("Error: Failed to fetch word list")
+    exit()
+
+word = word_list[random.randint(0, len(word_list) - 1)].upper()
+print(word)
 class Wordle:
     def __init__(self):
-        self.word = ["L", "E", "G", "A", "L"]
+        self.word = list(word)
         self.guesses = 0
         self.guessed_letters = []
         self.saved_boards = []
         self.empty_board = ["_", "_", "_", "_", "_"]
-        
-
 
     def guess(self, guess_word):
+        guess_word_lowercase = guess_word.lower()
         guess_word_capitalized = guess_word.upper()
         guess = list(guess_word_capitalized)
 
-        if len(guess) != 5:
+        if guess_word_lowercase not in word_list:
             print("Invalid guess")
             return False
         else:
@@ -64,6 +75,7 @@ class Wordle:
             elif self.guesses == 6:
                 self.print_board()
                 print("You lost!")
+                print(f"The word was: {''.join(self.word)}")
                 break
             else:
                 self.print_board()
