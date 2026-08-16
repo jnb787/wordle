@@ -13,7 +13,7 @@ A Python clone of Wordle that runs in the command line, with colored feedback af
 From the project root:
 
 ```bash
-pip install requests
+pip install -r requirements.txt
 python main.py
 ```
 
