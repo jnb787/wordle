@@ -20,7 +20,7 @@ if source.status_code != 200:
 word_list = source.text.splitlines()
 
 word = random.choice(word_list).upper()
-print(word)
+
 class Wordle:
     def __init__(self):
         self.word = list(word)
@@ -65,7 +65,6 @@ class Wordle:
     def print_board(self):
         print("Game Board:")
         for round in range(1, self.guesses + 1):
-            print(f"Guess {round}:")
             print(" ".join(self.saved_boards[(round - 1) * 5:(round - 1) * 5 + 5]))
 
         i = 0
